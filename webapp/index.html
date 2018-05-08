@@ -1,0 +1,58 @@
+<html>
+<meta charset="utf-8">
+<head>
+    <title>浙江农信项目-员工考勤管理系统 V1.0 beta</title>
+    <link rel="stylesheet" type="text/css" href="extjs4/resources/css/ext-all.css"/>
+    <link rel="stylesheet" type="text/css" href="core/css/comm.css"/>
+    <script type="text/javascript" src="extjs4/ext-all.js"></script>
+    <script type="text/javascript" src="extjs4/pc-textField.js"></script>
+    <script type="text/javascript" src="extjs4/locale/ext-lang-zh_CN.js"></script>
+    <script>
+    </script>
+
+    <script type="text/javascript" src="./core/app.js"></script>
+    <!--使用通用操作数据库方法-->
+    <script type="text/javascript" src="./core/coreApp/common/controller/CommonCRUD.js"></script>
+    <script type="text/javascript" src="./core/global.js"></script>
+    <script type="text/javascript" src="./core/coreApp/util/MonthField.js"></script>
+    <script>
+        // checkLogin = function () {
+            Ext.onReady(checkLogin =function () {
+            if (null === Ext.util.Cookies.get("userId")){
+                    Ext.Msg.alert("提示", "登录已失效!");
+                // alert("登录已失效!");
+                location.href = "login.html";
+            }
+            Ext.Ajax.request({
+                url: _hostUrl + "/v1/employee/" + Ext.util.Cookies.get("userId"),
+                method: "GET",
+                timeout: 4000,
+                success: function (response, opts) {
+                    var resObj = Ext.decode(response.responseText);
+                    if (resObj.code != 200) {
+                        Ext.Msg.alert("提示", "登录已失效!");
+                        Ext.util.Cookies.clear("userId");
+                        Ext.util.Cookies.clear("cardNo");
+                        Ext.util.Cookies.clear("userName");
+                        Ext.util.Cookies.clear("gradeName");
+                        Ext.util.Cookies.clear("grade");
+                        Ext.util.Cookies.clear("hiddenMenu");
+                        if (Ext.util.Cookies.get("rememberMe")=='false') {
+                            Ext.util.Cookies.clear("pacteraNo");
+                            Ext.util.Cookies.clear("rememberMe");
+                        }
+                        location.href = "login.html";
+                    }
+                }, failure: function () {
+                    Ext.Msg.alert("提示", "登录已失效!");
+                    location.href = "login.html";
+                }
+            });
+        });
+        checkLogin();
+    </script>
+</head>
+<body>
+
+</body>
+</html>
