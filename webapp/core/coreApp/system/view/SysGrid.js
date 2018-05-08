@@ -20,17 +20,17 @@ Ext.define("core.system.view.SysGrid", {
     columnLines: true, //展示竖线
     columns: [
         {xtype: 'rownumberer'},
-        {text: "员工号", dataIndex: "pacteraNo", width: 80, border: 50},
-        {text: "姓名", dataIndex: "name", width: 80, border: 50},
+        {text: "编号", dataIndex: "id", width: 50, border: 50},
+        {text: "用户名", dataIndex: "username", width: 80, border: 50},
+        {text: "昵称", dataIndex: "nickName", width: 120, border: 50},
+        {text: "手机", dataIndex: "cell", width: 100, border: 50},
+        {text: "email", dataIndex: "email", width: 200, border: 50},
         {
-            text: "性别", dataIndex: "sex", width: 50,
-            renderer: function (v) {
-                var store = Ext.create("core.common.store.SexTypeStore", {});
-                return store.findRecord("id", v).data["text"];
+            text: "权限", dataIndex: "grade", width: 100, border: 50,
+            renderer: function (v, metaData, record, rowIndex, colIndex, store, view) {
+                return this.authConvent(v, metaData);
             }
         },
-        {text: "卡号", dataIndex: "jobNo", width: 100, border: 50},
-        {text: "手机", dataIndex: "cellphone", width: 100, border: 50},
         {
             text: "创建时间", dataIndex: "createTime", width: 170, border: 50,
             renderer: function (v) {
@@ -39,7 +39,7 @@ Ext.define("core.system.view.SysGrid", {
             }
         },
         {
-            text: "最后修改时间", dataIndex: "updateTime", width: 170, border: 50,
+            text: "最后修改时间", dataIndex: "lastUpdateTime", width: 170, border: 50,
             renderer: function (v) {
                 var date = new Date(parseInt(v));
                 return Ext.Date.format(date, 'Y年m月d日 H:i:s');

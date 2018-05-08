@@ -4,14 +4,14 @@
 Ext.define("core.system.store.SysStore", {
     alias: 'widget.sysStore',
     extend: 'Ext.data.Store',
-    model: 'core.user.model.UserModel',
+    model: 'core.system.model.AuthModel',
     pageSize: 10,//每页显示10条记录
     proxy: {
         type: "ajax",
-        url: _hostUrl+"/v1/employee/"+ Ext.util.Cookies.get("userId"),
+        url: _hostUrl+"/v1/user/"+ Ext.util.Cookies.get("userId"),
         reader: {
             type: "json",
-            root: "data",
+            root: "data.user",
             totalProperty: 'total',
             messageProperty: 'error'
         },

@@ -5,14 +5,14 @@ Ext.define('core.system.view.AuthWindow', {
     extend: 'Ext.window.Window',
     alias: 'widget.authWindow',
     id:'authWindow',
-    title: "权限编辑",
-    width: 300,
-    height: 350,
+    title: "用户编辑",
+    width: 350,
+    height: 400,
     layout: "fit",
     modal:true,
     items: {
         xtype: "form",
-        margin: 5,
+        margin: 10,
         border: false,
         bodyStyle: 'padding:5 5 5 5',
         fieldDefaults: {
@@ -44,16 +44,35 @@ Ext.define('core.system.view.AuthWindow', {
             hidden: true
         }, {
             xtype: "textfield",
-            fieldLabel: "姓名",
-            name: "name",
-            readOnly: true
+            fieldLabel: "用户名",
+            name: "username",
+            allowBlank: false,//不允许为空
+            emptyText: '请输入用户名',
+            blankText: '用户名不能为空',//错误提示内容
+            readOnly: false
         }, {
             xtype: "textfield",
-            fieldLabel: "员工号",
-            name: "pacteraNo",
+            fieldLabel: "昵称",
+            name: "nickName",
             allowBlank: false,//不允许为空
-            blankText: '员工号不能为空',//错误提示内容
-            emptyText:'P0050379',
+            blankText: '昵称不能为空',//错误提示内容
+            emptyText:'请输入昵称',
+            readOnly: false
+        }, {
+            xtype: "textfield",
+            fieldLabel: "手机",
+            name: "cell",
+            allowBlank: false,//不允许为空
+            blankText: '手机不能为空',//错误提示内容
+            emptyText:'请输入手机号码',
+            readOnly: false
+        }, {
+            xtype: "textfield",
+            fieldLabel: "email",
+            name: "email",
+            allowBlank: false,//不允许为空
+            blankText: 'email不能为空',//错误提示内容
+            emptyText:'请输入email',
             readOnly: false
         }, {
             name: 'grade',

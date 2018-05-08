@@ -1,7 +1,7 @@
 <html>
 <meta charset="utf-8">
 <head>
-    <title>浙江农信项目-员工考勤管理系统 V1.0 beta</title>
+    <title>农大附中学习辅助系统管理系统 V1.0 beta V1.0 beta</title>
     <link rel="stylesheet" type="text/css" href="extjs4/resources/css/ext-all.css"/>
     <link rel="stylesheet" type="text/css" href="core/css/comm.css"/>
     <script type="text/javascript" src="extjs4/ext-all.js"></script>
@@ -24,7 +24,7 @@
                 location.href = "login.html";
             }
             Ext.Ajax.request({
-                url: _hostUrl + "/v1/employee/" + Ext.util.Cookies.get("userId"),
+                url: _hostUrl + "/v1/user/" + Ext.util.Cookies.get("userId"),
                 method: "GET",
                 timeout: 4000,
                 success: function (response, opts) {
@@ -33,12 +33,11 @@
                         Ext.Msg.alert("提示", "登录已失效!");
                         Ext.util.Cookies.clear("userId");
                         Ext.util.Cookies.clear("cardNo");
-                        Ext.util.Cookies.clear("userName");
                         Ext.util.Cookies.clear("gradeName");
                         Ext.util.Cookies.clear("grade");
                         Ext.util.Cookies.clear("hiddenMenu");
                         if (Ext.util.Cookies.get("rememberMe")=='false') {
-                            Ext.util.Cookies.clear("pacteraNo");
+                            Ext.util.Cookies.clear("userName");
                             Ext.util.Cookies.clear("rememberMe");
                         }
                         location.href = "login.html";

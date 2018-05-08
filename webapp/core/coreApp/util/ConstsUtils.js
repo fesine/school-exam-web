@@ -22,13 +22,13 @@ Ext.define('core.util.ConstsUtils',{
      authConvent: function (v,metaData) {
          var value;
          if (v == "0") {
-             value = "<font color=white>普通权限</font>";
+             value = "<font color=white>管理员</font>";
              metaData.style = ' margin: 1px; padding: 1px;background: green;';
          } else if (v == "1") {
-             value = "<font color=white>管理员权限</font>";
+             value = "<font color=white>权限管理员</font>";
              metaData.style = ' margin: 1px; padding: 1px;background: rgb(255,165,0);';
          } else if (v == "2") {
-             value = "<font color=white>超级管理员权限</font>";
+             value = "<font color=white>超级管理员</font>";
              metaData.style = ' margin: 1px; padding: 1px;background: orangered;';
          }
          return value;

@@ -2,7 +2,7 @@
 <% String _contextPath_ = request.getContextPath().equals("/") ? "" : request.getContextPath();%>
 <html>
 <head>
-    <title>dubbo无基础demo-用户管理系统</title>
+    <title>农大附中学习辅助系统管理系统 V1.0 beta</title>
     <%
         // 权限验证
         String userName = (String) session.getAttribute("userName");

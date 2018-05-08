@@ -40,8 +40,8 @@ Ext.define("core.app.view.MainViewLayout",{
             Ext.util.Cookies.get('userName')
             +'<br />角&nbsp;&nbsp;&nbsp;色：' +
             Ext.util.Cookies.get("gradeName") +
-            '<br />卡&nbsp;&nbsp;&nbsp;号：' +
-            Ext.util.Cookies.get('cardNo') +
+            '<br />昵&nbsp;&nbsp;&nbsp;称：' +
+            Ext.util.Cookies.get('nickName') +
             '</p>'
         }]
     }, {

@@ -24,7 +24,7 @@ Ext.define("core.system.controller.AuthController", {
             "authGrid button[ref=addAuth]": {
                 click: function (btn) {
                     var win = Ext.widget("authWindow");
-                    win.setTitle("添加权限");
+                    win.setTitle("添加用户");
                     var form = win.down("form");
                     var btn = form.down("button[ref=reset]");
                     form.down("button[ref=save]").disable();
@@ -49,7 +49,7 @@ Ext.define("core.system.controller.AuthController", {
                     var form = win.down("form");
                     var btn = form.down("button[ref=reset]");
                     form.down("button[ref=save]").enable();
-                    form.getForm().findField("pacteraNo").setReadOnly(true);
+                    form.getForm().findField("username").setReadOnly(true);
                     btn.disable();
                     //把选择的数据加载到form中去
                     form.loadRecord(records[0]);//加载数据，第1条

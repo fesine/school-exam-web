@@ -6,7 +6,8 @@ Ext.define("core.common.store.AuthTypeStore", {
     extend: 'Ext.data.ArrayStore',
     fields: ["id", "text"],
     data: [
-        [1, '管理员'],
+        [0, '管理员'],
+        [1, '权限管理员'],
         [2, '超级管理员']
     ]
 });

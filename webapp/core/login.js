@@ -18,7 +18,7 @@ var refreshCode = function (imgObj) {
 };
 
 Ext.onReady(function () {
-    var pactStr=Ext.util.Cookies.get('pacteraNo');
+    var username=Ext.util.Cookies.get('username');
     var _rem= Ext.util.Cookies.get("rememberMe");
     var userLoginPanel = Ext.create('Ext.panel.Panel', {
         bodyCls: 'bgimage',
@@ -52,16 +52,16 @@ Ext.onReady(function () {
                     }
                 },
                 items: [{
-                    fieldLabel: '员工号',
+                    fieldLabel: '用户名',
                     cls: 'user',
-                    name: 'pacteraNo',
+                    name: 'username',
                     labelAlign: 'right',
                     labelWidth: 65,
                     maxLength: 30,
-                    emptyText: '请输入公司员工号:P0012345',
-                    maxLengthText: '账号的最大长度为8个字符',
-                    blankText: "员工号不能为空，请填写！",
-                    value: pactStr,
+                    emptyText: '请输入用户名',
+                    maxLengthText: '用户名最大长度为20个字符',
+                    blankText: "用户名不能为空，请填写！",
+                    value: username,
                     allowBlank: false
                 }, {
                     fieldLabel: '密   码',
@@ -148,13 +148,13 @@ Ext.onReady(function () {
 
     var login = function () {
         var basic = Ext.getCmp("loginForm").getForm();
-        var pacteraNo = basic.findField("pacteraNo").getValue();
+        var username = basic.findField("username").getValue();
         var password = basic.findField("password").getValue();
         var checkCode = basic.findField("checkCode").getValue();
         var rememberMe = basic.findField("rememberMe").getValue();
         if (!basic.isValid()) {
-            if (null == pacteraNo || Ext.util.Format.trim(pacteraNo) == "") {
-                Ext.Msg.alert("提示", "请输入员工号！");
+            if (null == username || Ext.util.Format.trim(username) == "") {
+                Ext.Msg.alert("提示", "请输入用户名！");
             } else if (null == password || Ext.util.Format.trim(password) == "") {
                 Ext.Msg.alert("提示", "请输入密码！");
             } else if (null == checkCode || Ext.util.Format.trim(checkCode) == "") {
@@ -168,7 +168,7 @@ Ext.onReady(function () {
             url: _hostUrl+"/v1/user/login",
             params: {
                 checkCode: checkCode,
-                pacteraNo: pacteraNo,
+                username: username,
                 password: password
             },
             method: "POST",
@@ -176,22 +176,21 @@ Ext.onReady(function () {
             success: function (response, opts) {
                 var resObj = Ext.decode(response.responseText);
                 if (resObj.code==200) {
-                    var userName = resObj.data.user.name;
-                    var grade = resObj.data.grade;
+                    var userName = resObj.data.user.username;
+                    var grade = resObj.data.user.grade;
                     var now = new Date();
                     var expiry = new Date(now.getTime() + 7 * 24 * 60 * 60 * 1000);//保存7天
                     Ext.util.Cookies.set('userId', resObj.data.user.id , expiry);
-                    Ext.util.Cookies.set('cardNo', resObj.data.user.jobNo,expiry);
-                    Ext.util.Cookies.set('pacteraNo', resObj.data.user.pacteraNo,expiry);
+                    Ext.util.Cookies.set('nickName', resObj.data.user.nickName,expiry);
                     Ext.util.Cookies.set('userName', userName , expiry);
                     Ext.util.Cookies.set('grade', grade,expiry);
                     Ext.util.Cookies.set('rememberMe', rememberMe,expiry);
                     if(grade == 1)
-                        Ext.util.Cookies.set('gradeName', '管理员', expiry);
+                        Ext.util.Cookies.set('gradeName', '权限管理员', expiry);
                     else if(grade == 2)
-                        Ext.util.Cookies.set('gradeName', '系统管理员', expiry);
+                        Ext.util.Cookies.set('gradeName', '超级管理员', expiry);
                     else {
-                        Ext.util.Cookies.set('gradeName', '员工', expiry);
+                        Ext.util.Cookies.set('gradeName', '管理员', expiry);
                         Ext.util.Cookies.set('hiddenMenu', true, expiry);
                     }
 
@@ -212,7 +211,7 @@ Ext.onReady(function () {
     }
 
     Ext.create('Ext.window.Window', {
-        title: '浙江农信项目-员工考勤管理系统 V1.0 beta',
+        title: '农大附中学习辅助系统管理系统 V1.0 beta',
         width: 440,
         height: 300,
         layout: 'fit',

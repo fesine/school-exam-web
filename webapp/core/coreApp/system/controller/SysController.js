@@ -93,9 +93,6 @@ Ext.define("core.system.controller.SysController", {
                             var resObj = action.result;
                             if (resObj.code == 201) {
                                 Ext.getCmp("sysWindow").close();
-                                // var _grid = Ext.widget("sysGrid");
-                                // var store = _grid.getStore();
-                                // store.load();
                                 function callBack() {
                                     Ext.Ajax.request({
                                         waitMsg: '正在注销……',

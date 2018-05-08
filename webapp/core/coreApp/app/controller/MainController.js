@@ -31,13 +31,11 @@ Ext.define("core.app.controller.MainController",{
 							var resObj = Ext.decode(response.responseText);
 							if (resObj.code == 200) {
                                 Ext.util.Cookies.clear("userId");
-                                Ext.util.Cookies.clear("cardNo");
-                                Ext.util.Cookies.clear("userName");
                                 Ext.util.Cookies.clear("gradeName");
                                 Ext.util.Cookies.clear("grade");
                                 Ext.util.Cookies.clear("hiddenMenu");
                                 if(Ext.util.Cookies.get("rememberMe")=='false'){
-                                    Ext.util.Cookies.clear("pacteraNo");
+                                    Ext.util.Cookies.clear("userName");
                                     Ext.util.Cookies.clear("rememberMe");
                                 }
 								function callBack() {
@@ -67,39 +65,12 @@ Ext.define("core.app.controller.MainController",{
                             return true;
 						}
                     });
-					/**用户管理*/
-
-                    // if(record.data["id"]=="usermanager"){
-						// self.addFunItem({
-						// 	mainView:mainView,
-						// 	funViewXtype:"userlayout",
-						// 	funController:"core.user.controller.UserController",
-						// 	funViewName:"core.user.view.UserLayout"
-						// });
-                    // }
-                    // if(record.data["id"]=="attendancemanager"){
-						// self.addFunItem({
-						// 	mainView:mainView,
-						// 	funViewXtype:"attendancelayout",
-						// 	funController:"core.attendance.controller.AttendanceController",
-						// 	funViewName:"core.attendance.view.AttendanceLayout"
-						// });
-                    // }
-                    // if(record.data["id"]=="sysmanager"){
-						// self.addFunItem({
-						// 	mainView:mainView,
-						// 	funViewXtype:"sysLayout",
-						// 	funController:"core.system.controller.SysController",
-						// 	funViewName:"core.system.view.SysLayout"
-						// });
-                    // }
 				}//itemclick end
 			}//"westview treepanel" end
 		});
 	},
 	views : [
 		"core.app.view.TopView",
-		// "core.app.view.WestView",
 		"core.app.view.MenuTreeView",
 		"core.app.view.CenterView",
 		"core.app.view.MainViewLayout"

@@ -3,7 +3,7 @@ Ext.define("core.system.view.AuthLayout", {
 	extend : 'Ext.panel.Panel',
     id: 'authLayout',
 	alias : 'widget.authLayout',
-	title : "<center height=40>权限管理</center>",
+	title : "<center height=40>用户管理</center>",
 	closable:true,
 	iconCls: 'table_login',
 	defaults : {

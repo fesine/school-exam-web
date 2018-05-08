@@ -23,12 +23,21 @@ Ext.define("core.system.view.AuthGrid", {
     columns: [
         {xtype: 'rownumberer'},
         {text: "编号", dataIndex: "id", width: 50, border: 50},
-        {text: "员工号", dataIndex: "pacteraNo", width: 100, border: 50},
-        {text: "员工姓名", dataIndex: "name", width: 100, border: 50},
+        {text: "用户名", dataIndex: "username", width: 100, border: 50},
+        {text: "昵称", dataIndex: "nickName", width: 100, border: 50},
+        {text: "手机号码", dataIndex: "cell", width: 100, border: 50},
+        {text: "email", dataIndex: "email", width: 150, border: 50},
         {text: "权限", dataIndex: "grade", width: 100, border: 50,
             renderer: function (v, metaData, record, rowIndex, colIndex, store, view) {
                 return this.authConvent(v,metaData);
-            }}
+            }},
+        {
+            text: "最后更新时间", dataIndex: "lastUpdateTime", width: 200, border: 50,
+            renderer: function (v) {
+                var date = new Date(parseInt(v));
+                return Ext.Date.format(date, 'Y年m月d日 H:i:s');
+            }
+        }
 
     ],
     initComponent: function () {

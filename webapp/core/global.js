@@ -1,1 +1,1 @@
-_hostUrl= "http://localhost:8085/crm";
+_hostUrl= "http://localhost:8085/school-exam";
