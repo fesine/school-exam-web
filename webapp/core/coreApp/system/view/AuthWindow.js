@@ -75,8 +75,8 @@ Ext.define('core.system.view.AuthWindow', {
             emptyText:'请输入email',
             readOnly: false
         }, {
-            name: 'grade',
             xtype: 'combobox',
+            name: 'grade',
             fieldLabel: '管理权限',
             store: Ext.create("core.system.store.CodeStore", {}),
             forceSelection: true,

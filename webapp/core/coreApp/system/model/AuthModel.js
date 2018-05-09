@@ -9,7 +9,7 @@
         {name:"nickName",type:"string", sortable:true},
         {name:"cell",type:"string", sortable:true},
         {name:"email",type:"string", sortable:true},
- 		{name:"grade",type:"number", sortable:true},
+ 		{name:"grade",type:"string", sortable:true},
         {name:"createTime",type:"string", sortable:true},
         {name:"lastUpdateTime",type:"string", sortable:true}
     ]

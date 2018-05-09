@@ -27,7 +27,7 @@ Ext.define("core.system.controller.AuthController", {
                     form.loadRecord(record);//加载数据
                     var btn = form.down("button[ref=reset]");
                     form.down("button[ref=save]").enable();
-                    form.getForm().findField("pacteraNo").setReadOnly(true);
+                    form.getForm().findField("username").setReadOnly(true);
                     btn.disable();
                     win.show();
                 }
