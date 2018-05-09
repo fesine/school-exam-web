@@ -43,43 +43,33 @@ Ext.define('core.system.view.SysUpdateWindow', {
             hidden: true
         }, {
             xtype: "textfield",
-            fieldLabel: "姓名",
-            name: "name",
-            emptyText:'李永伟',
+            fieldLabel: "用户名",
+            name: "username",
+            emptyText:'请输入用户名',
             allowBlank: false,//不允许为空
             readOnly: false
         }, {
-            xtype: "combobox",
-            fieldLabel: "性别",
-            name: "sex",
-            store: Ext.create("core.common.store.SexTypeStore", {}),
-            forceSelection: true,
-            queryMode: 'local',
-            valueField: 'id',
-            triggerAction: "all",
+            xtype: "textfield",
+            fieldLabel: "昵称",
+            name: "nickName",
+            emptyText:'昵称',
             allowBlank: false,//不允许为空
-            displayField: 'text'
+            readOnly: false
         }, {
             xtype: "textfield",
-            fieldLabel: "员工号",
-            name: "pacteraNo",
+            fieldLabel: "手机",
+            name: "cell",
             allowBlank: false,//不允许为空
-            blankText: '员工号不能为空',//错误提示内容
+            blankText: '手机号不能为空',//错误提示内容
             emptyText:'P0050379',
             readOnly: false
         }, {
             xtype: "textfield",
             fieldLabel: "卡号",
-            name: "jobNo",
+            name: "email",
             allowBlank: false,//不允许为空
-            blankText: '卡号不能为空',//错误提示内容
-            emptyText:'2779172541',
-            readOnly: false
-        }, {
-            xtype: "textfield",
-            fieldLabel: "手机",
-            name: "cellphone",
-            emptyText:'13812341234',
+            blankText: 'email不能为空',//错误提示内容
+            emptyText:'111@admin.com',
             readOnly: false
         }, {
             height: 10,

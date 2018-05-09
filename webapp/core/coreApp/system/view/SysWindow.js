@@ -43,8 +43,8 @@ Ext.define('core.system.view.SysWindow', {
             hidden: true
         }, {
             xtype: "textfield",
-            fieldLabel: "姓名",
-            name: "name",
+            fieldLabel: "用户名",
+            name: "username",
             allowBlank: false,//不允许为空
             blankText: '用户名不能为空',//错误提示内容
             readOnly: false

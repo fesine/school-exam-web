@@ -16,7 +16,7 @@ Ext.define("core.system.controller.SysController", {
                     }
                     var win = Ext.widget("sysWindow");
                     var form = win.down("form");
-                    var item = form.getForm().findField("name");
+                    var item = form.getForm().findField("username");
                     item.setReadOnly(true);
                     //把选择的数据加载到form中去
                     form.loadRecord(records[0]);//加载数据
@@ -33,9 +33,7 @@ Ext.define("core.system.controller.SysController", {
                 itemdblclick: function (_grid, record, item, index, e, eOpts) {
                     var win = Ext.widget("sysUpdateWindow");
                     var form = win.down("form");
-                    form.getForm().findField("name").setReadOnly(true);
-                    form.getForm().findField("pacteraNo").setReadOnly(true);
-                    form.getForm().findField("jobNo").setReadOnly(true);
+                    form.getForm().findField("username").setReadOnly(true);
                     //把选择的数据加载到form中去
                     form.loadRecord(record);//加载数据
                     var btn = form.down("button[ref=reset]");
@@ -56,7 +54,7 @@ Ext.define("core.system.controller.SysController", {
                     _form.submit({
                         clientValidation: true,
                         waitMsg: '正在进行处理,请稍后...',
-                        url: _hostUrl + "/v1/employee",
+                        url: _hostUrl + "/v1/user",
                         method: 'PUT',
                         failure: function (form, action) {
                             //因为不再返回success，所以在failure中请求回调
@@ -87,7 +85,7 @@ Ext.define("core.system.controller.SysController", {
                     _form.submit({
                         clientValidation: true,
                         waitMsg: '正在进行处理,请稍后...',
-                        url: _hostUrl + "/v1/employee/" + _form.getForm().findField("id").getValue(),
+                        url: _hostUrl + "/v1/user/password/" + _form.getForm().findField("id").getValue(),
                         method: 'PUT',
                         failure: function (form, action) {
                             //因为不再返回success，所以在failure中请求回调
