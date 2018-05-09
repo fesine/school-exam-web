@@ -1,13 +1,13 @@
 /**
  * Created by Fesine on 2017/3/4.
  */
-Ext.define('core.exam.view.ExamWindow', {
+Ext.define('core.exam.view.CoursePointWindow', {
     extend: 'Ext.window.Window',
-    alias: 'widget.examWindow',
-    id:'examWindow',
-    title: "考试信息编辑",
-    width: 300,
-    height: 350,
+    alias: 'widget.coursePointWindow',
+    id:'coursePointWindow',
+    title: "知识点信息编辑",
+    width: 450,
+    height: 400,
     layout: "fit",
     modal:true,
     items: {
@@ -78,61 +78,15 @@ Ext.define('core.exam.view.ExamWindow', {
                 }
             }
         }, {
-            xtype: 'combobox',
-            fieldLabel: '考试形式',
-            name: 'examType',
-            store: Ext.create("Ext.data.Store", {
-                fields: ["value", "name"],
-                data: [
-                    {value: 1, name: "闭卷"},
-                    {value: 2, name: "开卷"},
-                ]
-            }),
-            forceSelection: true,
-            queryMode: 'local',
-            displayField: 'name',
-            valueField: 'value',
-            emptyText: '请选择',
-            allowBlank: false,//不允许为空
-            blankText: '考试形式不能为空'
+            xtype: "textarea",
+            fieldLabel: "知识点",
+            name: "coursePoint",
+            emptyText: '请输入知识点',
+            width: 400,
+            height:100,
+            minHeight: 60
         }, {
-            xtype: "datefield",
-            fieldLabel: "考试日期",
-            format: "Y年m月d日",
-            name: "startDate",
-            blankText: '考试日期不能为空',//错误提示内容,
-            allowBlank: false
-        }, {
-            xtype: "timefield",
-            fieldLabel: "开始时间",
-            format: "G:i",
-            increment: 30,
-            minValue: '8:00',
-            maxValue: '17:00',
-            name: "startTimeStr",
-            blankText: '开始时间不能为空',//错误提示内容,
-            allowBlank: false,//不允许为空
-            listeners: {
-                blur: function (obj) {
-                    setTimeCount(obj);
-                }
-            }
-        }, {
-            xtype: "timefield",
-            fieldLabel: "结束时间",
-            format: "G:i",
-            increment: 30,
-            minValue: '8:00',
-            maxValue: '17:00',
-            name: "endTimeStr",
-            blankText: '结束时间不能为空',//错误提示内容,
-            allowBlank: false,//不允许为空
-            listeners: {
-                blur: function (obj) {
-                    setTimeCount(obj);
-                }
-            }
-        }, {
+
             height: 10,
             bodyStyle: 'background:transparent',//设置为透明,不妨碍更换主题了
             border: 0

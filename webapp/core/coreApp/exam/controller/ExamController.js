@@ -59,7 +59,7 @@ Ext.define("core.exam.controller.ExamController", {
                     form.down("button[ref=save]").enable();
                     btn.disable();
                     //把选择的数据加载到form中去
-                    setDateTime(record, form);
+                    setDateTime(records[0], form);
                     form.loadRecord(records[0]);//加载数据，第1条
                     win.show();
                 }

@@ -1,17 +1,17 @@
 /*
  * ClassName 用户数据集
  */
-Ext.define("core.employee.store.NameStore", {
-    alias: 'widget.nameStore',
+Ext.define("core.exam.store.CoursePointStore", {
+    alias: 'widget.coursePointStore',
     extend: 'Ext.data.Store',
-    model: 'core.employee.model.NameModel',
-    pageSize: 10,//每页显示10条记录
+    model: 'core.exam.model.CoursePointModel',
+    pageSize: 20,
     proxy: {
         type: "ajax",
-        url: _hostUrl+"/v1/names",
+        url: _hostUrl+"/v1/coursePoints",
         reader: {
             type: "json",
-            root: "data",
+            root: "data.resultList",
             totalProperty: 'data.totalRecord',
             messageProperty: 'error'
         },

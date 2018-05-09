@@ -1,7 +1,7 @@
-Ext.define("core.employee.view.NameGrid", {
+Ext.define("core.exam.view.CoursePointGrid", {
     extend: "Ext.grid.Panel",
-    alias: "widget.nameGrid",
-    store: "core.employee.store.NameStore",
+    alias: "widget.coursePointGrid",
+    store: "core.exam.store.CoursePointStore",
     mixins: ['core.util.ConstsUtils'],
     selModel: {
         selType: "checkboxmodel"
@@ -14,14 +14,19 @@ Ext.define("core.employee.view.NameGrid", {
     },
     tbar: [
         {xtype: 'button',text:"刷新",ref:'refresh',  iconCls: 'table_refresh'},
-        {xtype: 'button', text: '新增差错姓名', ref: 'addName', iconCls: 'table_add'},
-        {xtype: 'button', text: '修改差错姓名', ref: 'updateName', iconCls: 'table_edit'},
-        {xtype: 'button', text: '删除差错姓名', ref: 'removeName', iconCls: 'table_remove'}
+        {xtype: 'button', text: '新增知识点', ref: 'addCoursePoint', iconCls: 'table_add'},
+        {xtype: 'button', text: '修改知识点', ref: 'updateCoursePoint', iconCls: 'table_edit'},
+        {xtype: 'button', text: '删除知识点', ref: 'removeCoursePoint', iconCls: 'table_remove'},
+        "-",
+        {xtype: 'textfield', emptyText: '按知识点查询', ref: 'coursePointKey'},
+        "-",
+        {xtype: 'button', text: '搜索', ref: 'search', iconCls: 'table_search'},
+        {xtype: 'button', text: '重置', ref: 'reset', iconCls: 'wfreturn'}
     ],
     bbar: {
         xtype: 'pagingtoolbar',
-        id: 'namePage',
-        store: 'core.employee.store.NameStore',
+        id: 'coursePointPage',
+        store: 'core.exam.store.CoursePointStore',
         dock: 'bottom',
         displayInfo: true,
         items: [
@@ -33,8 +38,8 @@ Ext.define("core.employee.view.NameGrid", {
                 store: Ext.create("core.common.store.PageSizeStore", {}),
                 displayField: 'id',
                 valueField: 'pageSize',
-                ref: 'namePageSize',
-                value: 10
+                ref: 'coursePointPageSize',
+                value: 20
             }]
     },
     enableKeyNav: true,  //可以使用键盘控制上下
@@ -42,9 +47,9 @@ Ext.define("core.employee.view.NameGrid", {
     columns: [
         {xtype: 'rownumberer'},
         {text: "编号", dataIndex: "id", width: 50, border: 50},
-        {text: "员工号", dataIndex: "pacteraNo", width: 100, border: 50},
-        {text: "员工姓名", dataIndex: "empName", width: 100, border: 50},
-        {text: "行方注册姓名", dataIndex: "attName", width: 100, border: 50}
+        {text: "年级", dataIndex: "gradeName", width: 100, border: 50},
+        {text: "课程", dataIndex: "courseName", width: 100, border: 50},
+        {text: "知识点", dataIndex: "coursePoint", width: 300, border: 50}
 
     ],
     initComponent: function () {
