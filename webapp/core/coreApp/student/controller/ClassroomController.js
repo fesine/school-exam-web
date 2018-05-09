@@ -131,7 +131,7 @@ Ext.define("core.school.controller.ClassroomController", {
                 }
             },
 
-            "classroomGrid combobox[ref=classroomPageSize]": {
+            "classroomGrid combobox[ref=errorPageSize]": {
                 change: function (_this, newValue, oldValue, eOpts) {
                     var store = _this.up("classroomGrid").getStore();
                     store.pageSize = newValue;//设值新分页大小
@@ -149,3 +149,19 @@ Ext.define("core.school.controller.ClassroomController", {
     stores: ["core.school.store.ClassroomStore"],
     models: ["core.school.model.ClassroomModel"]
 });
+getTimeField = function (_form, date) {
+    var dateFormat = 'Y-m-d';
+    var dateValue = _form.getForm().findField(date).getValue();
+    if (null === dateValue) {
+        return null;
+    }
+    var startDate = Ext.Date.format(dateValue, dateFormat);
+    return startDate;
+};
+getTimeFormat = function (dateValue, dateFormat) {
+    if (null === dateValue) {
+        return null;
+    }
+    var startDate = Ext.Date.format(dateValue, dateFormat);
+    return startDate;
+};

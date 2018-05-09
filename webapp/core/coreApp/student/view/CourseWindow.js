@@ -1,25 +1,24 @@
 /**
  * Created by Fesine on 2017/3/4.
  */
-Ext.define('core.employee.view.EmpWindow', {
+Ext.define('core.school.view.CourseWindow', {
     extend: 'Ext.window.Window',
-    alias: 'widget.empWindow',
-    id:'empWindow',
-    title: "员工信息编辑",
+    alias: 'widget.courseWindow',
+    id: 'courseWindow',
+    title: "课程管理编辑",
     width: 300,
-    height: 350,
+    height: 200,
     layout: "fit",
-    modal:true,
+    modal: true,
     items: {
         xtype: "form",
         margin: 5,
         border: false,
         bodyStyle: 'padding:5 5 5 5',
         fieldDefaults: {
-            width: 260,
             labelAlign: 'left',
             msgTarget: 'under',
-            labelWidth: 80
+            labelWidth: 60
         },
         tbar: [{
             xtype: "button",
@@ -43,45 +42,22 @@ Ext.define('core.employee.view.EmpWindow', {
             name: "id",
             hidden: true
         }, {
-            xtype: "textfield",
-            fieldLabel: "姓名",
-            name: "name",
-            emptyText:'李永伟',
-            allowBlank: false,//不允许为空
-            readOnly: false
-        }, {
             xtype: "combobox",
-            fieldLabel: "性别",
-            name: "sex",
-            store: Ext.create("core.common.store.SexTypeStore", {}),
+            fieldLabel: "年级",
+            name: "gradeId",
+            store: Ext.create("core.school.store.GradeStore", {}),
             forceSelection: true,
-            queryMode: 'local',
+            queryMode: 'remote',
             valueField: 'id',
             triggerAction: "all",
             allowBlank: false,//不允许为空
-            displayField: 'text'
+            displayField: 'gradeName'
         }, {
             xtype: "textfield",
-            fieldLabel: "员工号",
-            name: "pacteraNo",
-            allowBlank: false,//不允许为空
-            blankText: '员工号不能为空',//错误提示内容
-            emptyText:'P0050379',
-            readOnly: false
-        }, {
-            xtype: "textfield",
-            fieldLabel: "卡号",
-            name: "jobNo",
-            allowBlank: false,//不允许为空
-            blankText: '卡号不能为空',//错误提示内容
-            emptyText:'2779172541',
-            readOnly: false
-        }, {
-            xtype: "textfield",
-            fieldLabel: "手机",
-            name: "cellphone",
-            emptyText:'13812341234',
-            readOnly: false
+            fieldLabel: "课程名称",
+            name: "courseName",
+            blankText: '课程名称不能为空',//错误提示内容,
+            allowBlank: false//不允许为空
         }, {
             height: 10,
             bodyStyle: 'background:transparent',//设置为透明,不妨碍更换主题了

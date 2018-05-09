@@ -1,4 +1,4 @@
-Ext.define("core.school.controller.ClassroomController", {
+Ext.define("core.school.controller.CourseController", {
     extend: "Ext.app.Controller",
 
     init: function () {
@@ -7,7 +7,7 @@ Ext.define("core.school.controller.ClassroomController", {
         var nameTemp;
 
         var editRecord = function (record) {
-            var win = Ext.widget("classroomWindow");
+            var win = Ext.widget("courseWindow");
             var form = win.down("form");
             //把选择的数据加载到form中去
             form.loadRecord(record);//加载数据
@@ -16,7 +16,7 @@ Ext.define("core.school.controller.ClassroomController", {
             win.show();
         };
         this.control({
-            "classroomGrid": {
+            "courseGrid": {
                 itemdblclick: function (_grid, record, item, index, e, eOpts) {
                     if (Ext.util.Cookies.get('grade') < 1) {
                         return;
@@ -25,11 +25,11 @@ Ext.define("core.school.controller.ClassroomController", {
                 }
             },
             /**
-             * 修改班级,这个功能在保存按钮中完成， 要修改用户，请双击记录
+             * 修改课程,这个功能在保存按钮中完成， 要修改用户，请双击记录
              */
-            "classroomGrid button[ref=updateClassroom]": {
+            "courseGrid button[ref=updateCourse]": {
                 click: function (_btn) {
-                    var grid = _btn.up("classroomGrid");
+                    var grid = _btn.up("courseGrid");
                     var records = grid.getSelectionModel().getSelection();
                     if (!records || records.length != 1) {
                         Ext.Msg.alert("提示", "请选择一条数据!");
@@ -39,12 +39,12 @@ Ext.define("core.school.controller.ClassroomController", {
                 }
             },
             /**
-             * 添加班级
+             * 添加课程
              */
-            "classroomGrid button[ref=addClassroom]": {
+            "courseGrid button[ref=addCourse]": {
                 click: function (btn) {
-                    var win = Ext.widget("classroomWindow");
-                    win.setTitle("添加班级信息");
+                    var win = Ext.widget("courseWindow");
+                    win.setTitle("添加课程信息");
                     var form = win.down("form");
                     var btn = form.down("button[ref=reset]");
                     form.down("button[ref=save]").disable();
@@ -57,16 +57,16 @@ Ext.define("core.school.controller.ClassroomController", {
             /**
              * 删除栏目
              */
-            "classroomGrid button[ref=removeClassroom]": {
+            "courseGrid button[ref=removeCourse]": {
                 click: function (btn) {
-                    var grid = btn.up("classroomGrid");
-                    commonDelete(grid, "/v1/classrooms");
+                    var grid = btn.up("courseGrid");
+                    commonDelete(grid, "/v1/courses");
                 }
             },
             /**
              * 刷新按钮
              */
-            "classroomGrid button[ref=refresh]": {
+            "courseGrid button[ref=refresh]": {
                 click: function (btn) {
                     var grid = btn.ownerCt.ownerCt;
                     var store = grid.getStore();
@@ -77,12 +77,12 @@ Ext.define("core.school.controller.ClassroomController", {
             /**
              * 添加菜单form的保存按钮
              */
-            "classroomWindow button[ref=save]": {
+            "courseWindow button[ref=save]": {
                 click: function (btn) {
                     //1获得form
                     var _form = btn.ownerCt.ownerCt;
                     var id = _form.getForm().findField("id").getValue();
-                    var _url = _hostUrl + "/v1/classroom";
+                    var _url = _hostUrl + "/v1/course";
                     var method;
                     if (id == "" || null == id) {
                         method = "POST";
@@ -100,8 +100,8 @@ Ext.define("core.school.controller.ClassroomController", {
                             //因为不再返回success，所以在failure中请求回调
                             var resObj = action.result;
                             if (resObj.code == 201) {
-                                Ext.getCmp("classroomWindow").close();
-                                var _grid = Ext.widget("classroomGrid");
+                                Ext.getCmp("courseWindow").close();
+                                var _grid = Ext.widget("courseGrid");
                                 var store = _grid.getStore();
                                 store.load();
                                 _grid.show();
@@ -116,7 +116,7 @@ Ext.define("core.school.controller.ClassroomController", {
             },
 
             //重置事件
-            "classroomWindow button[ref=reset]": {
+            "courseWindow button[ref=reset]": {
                 click: function (btn) {
                     var form = btn.ownerCt.ownerCt;
                     form.getForm().reset();
@@ -125,15 +125,15 @@ Ext.define("core.school.controller.ClassroomController", {
             /**
              * 添加用户form的返回按钮
              */
-            "classroomWindow button[ref=return]": {
+            "courseWindow button[ref=return]": {
                 click: function (btn) {
-                    Ext.getCmp("classroomWindow").close();
+                    Ext.getCmp("courseWindow").close();
                 }
             },
 
-            "classroomGrid combobox[ref=classroomPageSize]": {
+            "courseGrid combobox[ref=errorPageSize]": {
                 change: function (_this, newValue, oldValue, eOpts) {
-                    var store = _this.up("classroomGrid").getStore();
+                    var store = _this.up("courseGrid").getStore();
                     store.pageSize = newValue;//设值新分页大小
                     store.currentPage = 1;//每次都从第一页开始加载
                     store.load();//用来加载数据
@@ -142,10 +142,26 @@ Ext.define("core.school.controller.ClassroomController", {
         });
     },
     views: [
-        "core.school.view.ClassroomLayout",
-        "core.school.view.ClassroomGrid",
-        "core.school.view.ClassroomWindow"
+        "core.school.view.CourseLayout",
+        "core.school.view.CourseGrid",
+        "core.school.view.CourseWindow"
     ],
-    stores: ["core.school.store.ClassroomStore"],
-    models: ["core.school.model.ClassroomModel"]
+    stores: ["core.school.store.CourseStore"],
+    models: ["core.school.model.CourseModel"]
 });
+getTimeField = function (_form, date) {
+    var dateFormat = 'Y-m-d';
+    var dateValue = _form.getForm().findField(date).getValue();
+    if (null === dateValue) {
+        return null;
+    }
+    var startDate = Ext.Date.format(dateValue, dateFormat);
+    return startDate;
+};
+getTimeFormat = function (dateValue, dateFormat) {
+    if (null === dateValue) {
+        return null;
+    }
+    var startDate = Ext.Date.format(dateValue, dateFormat);
+    return startDate;
+};

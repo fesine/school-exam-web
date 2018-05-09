@@ -1,9 +1,9 @@
 /**用户管理视图布局类*/
-Ext.define("core.employee.view.EmpLayout", {
+Ext.define("core.exam.view.ExamLayout", {
 	extend : 'Ext.panel.Panel',
-    id: 'empLayout',
-	alias : 'widget.empLayout',
-	title : "<center height=40>员工管理</center>",
+    id: 'examLayout',
+	alias : 'widget.examLayout',
+	title : "<center height=40>考试管理</center>",
 	closable:true,
 	iconCls: 'employees',
 	defaults : {
@@ -11,9 +11,9 @@ Ext.define("core.employee.view.EmpLayout", {
 	},
 	layout : 'fit',
 	items:[{
-		xtype:"empWindow"
+		xtype:"examWindow"
 	}, {
-        xtype: "empGrid"
+        xtype: "examGrid"
     }
 
 	]

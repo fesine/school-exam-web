@@ -1,4 +1,4 @@
-Ext.define("core.school.controller.ClassroomController", {
+Ext.define("core.student.controller.StudentController", {
     extend: "Ext.app.Controller",
 
     init: function () {
@@ -6,17 +6,22 @@ Ext.define("core.school.controller.ClassroomController", {
         var url;
         var nameTemp;
 
+        var setDateTime = function (record, form) {
+            var startTime = new Number(record.data.stuBirthday);
+            form.getForm().findField("stuBirthdayStr").setValue(new Date(startTime));
+        };
         var editRecord = function (record) {
-            var win = Ext.widget("classroomWindow");
+            var win = Ext.widget("studentWindow");
             var form = win.down("form");
             //把选择的数据加载到form中去
             form.loadRecord(record);//加载数据
+            setDateTime(record, form);
             var btn = form.down("button[ref=reset]");
             btn.disable();
             win.show();
         };
         this.control({
-            "classroomGrid": {
+            "studentGrid": {
                 itemdblclick: function (_grid, record, item, index, e, eOpts) {
                     if (Ext.util.Cookies.get('grade') < 1) {
                         return;
@@ -25,11 +30,11 @@ Ext.define("core.school.controller.ClassroomController", {
                 }
             },
             /**
-             * 修改班级,这个功能在保存按钮中完成， 要修改用户，请双击记录
+             * 修改学生,这个功能在保存按钮中完成， 要修改用户，请双击记录
              */
-            "classroomGrid button[ref=updateClassroom]": {
+            "studentGrid button[ref=updateStudent]": {
                 click: function (_btn) {
-                    var grid = _btn.up("classroomGrid");
+                    var grid = _btn.up("studentGrid");
                     var records = grid.getSelectionModel().getSelection();
                     if (!records || records.length != 1) {
                         Ext.Msg.alert("提示", "请选择一条数据!");
@@ -39,12 +44,12 @@ Ext.define("core.school.controller.ClassroomController", {
                 }
             },
             /**
-             * 添加班级
+             * 添加学生
              */
-            "classroomGrid button[ref=addClassroom]": {
+            "studentGrid button[ref=addStudent]": {
                 click: function (btn) {
-                    var win = Ext.widget("classroomWindow");
-                    win.setTitle("添加班级信息");
+                    var win = Ext.widget("studentWindow");
+                    win.setTitle("添加学生信息");
                     var form = win.down("form");
                     var btn = form.down("button[ref=reset]");
                     form.down("button[ref=save]").disable();
@@ -57,16 +62,16 @@ Ext.define("core.school.controller.ClassroomController", {
             /**
              * 删除栏目
              */
-            "classroomGrid button[ref=removeClassroom]": {
+            "studentGrid button[ref=removeStudent]": {
                 click: function (btn) {
-                    var grid = btn.up("classroomGrid");
-                    commonDelete(grid, "/v1/classrooms");
+                    var grid = btn.up("studentGrid");
+                    commonDelete(grid, "/v1/students");
                 }
             },
             /**
              * 刷新按钮
              */
-            "classroomGrid button[ref=refresh]": {
+            "studentGrid button[ref=refresh]": {
                 click: function (btn) {
                     var grid = btn.ownerCt.ownerCt;
                     var store = grid.getStore();
@@ -75,14 +80,37 @@ Ext.define("core.school.controller.ClassroomController", {
                 }
             },
             /**
+             * 查找功能
+             */
+            "studentGrid button[ref=search]": {
+                click: function (_btn) {
+                    var tbar = _btn.ownerCt;
+                    var store = tbar.ownerCt.getStore();
+                    var stuNoKey = tbar.down("textfield[ref = stuNoKey]").value;
+                    var stuNameKey = tbar.down("textfield[ref = stuNameKey]").value;
+                    store.load({
+                        params: {stuNo: stuNoKey, stuName: stuNameKey}
+                    });
+                }
+            },
+            //重置事件
+            "studentGrid button[ref=reset]": {
+                click: function (btn) {
+                    var tbar = btn.ownerCt;
+                    tbar.down("textfield[ref = stuNoKey]").setValue("");
+                    tbar.down("textfield[ref = stuNameKey]").setValue("");
+                    var store = tbar.ownerCt.getStore();
+                }
+            },
+            /**
              * 添加菜单form的保存按钮
              */
-            "classroomWindow button[ref=save]": {
+            "studentWindow button[ref=save]": {
                 click: function (btn) {
                     //1获得form
                     var _form = btn.ownerCt.ownerCt;
                     var id = _form.getForm().findField("id").getValue();
-                    var _url = _hostUrl + "/v1/classroom";
+                    var _url = _hostUrl + "/v1/student";
                     var method;
                     if (id == "" || null == id) {
                         method = "POST";
@@ -90,18 +118,22 @@ Ext.define("core.school.controller.ClassroomController", {
                         _url = _url + "/" + id;
                         method = "PUT";
                     }
+                    var dateTime = getTimeField(_form, 'stuBirthdayStr');
                     //2.把数据保存到数据库中去
                     _form.submit({
                         clientValidation: true,
                         waitMsg: '正在进行处理,请稍后...',
                         url: _url,
+                        params: {
+                            dateStr: dateTime
+                        },
                         method: method,
                         failure: function (form, action) {
                             //因为不再返回success，所以在failure中请求回调
                             var resObj = action.result;
                             if (resObj.code == 201) {
-                                Ext.getCmp("classroomWindow").close();
-                                var _grid = Ext.widget("classroomGrid");
+                                Ext.getCmp("studentWindow").close();
+                                var _grid = Ext.widget("studentGrid");
                                 var store = _grid.getStore();
                                 store.load();
                                 _grid.show();
@@ -116,7 +148,7 @@ Ext.define("core.school.controller.ClassroomController", {
             },
 
             //重置事件
-            "classroomWindow button[ref=reset]": {
+            "studentWindow button[ref=reset]": {
                 click: function (btn) {
                     var form = btn.ownerCt.ownerCt;
                     form.getForm().reset();
@@ -125,15 +157,15 @@ Ext.define("core.school.controller.ClassroomController", {
             /**
              * 添加用户form的返回按钮
              */
-            "classroomWindow button[ref=return]": {
+            "studentWindow button[ref=return]": {
                 click: function (btn) {
-                    Ext.getCmp("classroomWindow").close();
+                    Ext.getCmp("studentWindow").close();
                 }
             },
 
-            "classroomGrid combobox[ref=classroomPageSize]": {
+            "studentGrid combobox[ref=studentPageSize]": {
                 change: function (_this, newValue, oldValue, eOpts) {
-                    var store = _this.up("classroomGrid").getStore();
+                    var store = _this.up("studentGrid").getStore();
                     store.pageSize = newValue;//设值新分页大小
                     store.currentPage = 1;//每次都从第一页开始加载
                     store.load();//用来加载数据
@@ -142,10 +174,21 @@ Ext.define("core.school.controller.ClassroomController", {
         });
     },
     views: [
-        "core.school.view.ClassroomLayout",
-        "core.school.view.ClassroomGrid",
-        "core.school.view.ClassroomWindow"
+        "core.student.view.StudentLayout",
+        "core.student.view.StudentGrid",
+        "core.student.view.StudentWindow"
     ],
-    stores: ["core.school.store.ClassroomStore"],
-    models: ["core.school.model.ClassroomModel"]
+    stores: ["core.student.store.StudentStore"],
+    models: ["core.student.model.StudentModel"]
 });
+
+getTimeField = function (_form, date) {
+    var dateFormat = 'Y年m月d日';
+    var dateValue = _form.getForm().findField(date).getValue();
+    if (null === dateValue) {
+        return null;
+    }
+    var startDate = Ext.Date.format(dateValue, dateFormat);
+    return startDate;
+
+};

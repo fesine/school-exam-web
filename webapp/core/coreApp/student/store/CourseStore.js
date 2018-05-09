@@ -1,14 +1,19 @@
+
 /*
  * ClassName 用户数据集
  */
-Ext.define("core.employee.store.EmpStore", {
-    alias: 'widget.empStore',
+Ext.define("core.school.store.CourseStore", {
+    alias: 'widget.courseStore',
     extend: 'Ext.data.Store',
-    model: 'core.employee.model.EmpModel',
-    pageSize: 25,
+    model: 'core.school.model.CourseModel',
+    pageSize: 20,//每页显示10条记录
     proxy: {
         type: "ajax",
-        url: _hostUrl+"/v1/employees",
+        url: _hostUrl + "/v1/courses",
+        extraParams: {
+            name: Ext.util.Cookies.get("userName"),
+            dateStr: null
+        },
         reader: {
             type: "json",
             root: "data.resultList",
