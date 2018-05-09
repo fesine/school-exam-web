@@ -3,6 +3,7 @@ Ext.define("core.system.controller.SysController", {
 
     init: function () {
         var self = this;
+
         this.control({
             //修改密码
             "sysGrid button[ref=updatePassword]": {

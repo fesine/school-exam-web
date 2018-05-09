@@ -78,12 +78,13 @@ Ext.define('core.system.view.AuthWindow', {
             name: 'grade',
             xtype: 'combobox',
             fieldLabel: '管理权限',
-            store: Ext.create("core.common.store.AuthTypeStore", {}),
+            store: Ext.create("core.system.store.CodeStore", {}),
             forceSelection: true,
+            //指定local，加载已经缓存的数据，不再远程请求，如果本地没数据，则远程请求
             queryMode: 'local',
-            displayField: 'text',
-            allowBlank: false,//不允许为空
-            valueField: 'id'
+            valueField: 'value',
+            triggerAction: "all",
+            displayField: 'text'
         }, {
             height: 10,
             bodyStyle: 'background:transparent',//设置为透明,不妨碍更换主题了

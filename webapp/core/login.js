@@ -18,7 +18,7 @@ var refreshCode = function (imgObj) {
 };
 
 Ext.onReady(function () {
-    var username=Ext.util.Cookies.get('username');
+    var username=Ext.util.Cookies.get('userName');
     var _rem= Ext.util.Cookies.get("rememberMe");
     var userLoginPanel = Ext.create('Ext.panel.Panel', {
         bodyCls: 'bgimage',

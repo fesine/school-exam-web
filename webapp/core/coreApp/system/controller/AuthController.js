@@ -3,6 +3,21 @@ Ext.define("core.system.controller.AuthController", {
 
     init: function () {
         var self = this;
+        //权限级别
+        var gradeGroup;
+
+        function getGradeGroup (form) {
+            if (!gradeGroup) {
+                var combobox = form.getForm().findField("grade");
+                var store = combobox.getStore();
+                var urlTemp = store.getProxy().url;
+                store.getProxy().url = _hostUrl + "/v1/codes/gradeGroup";
+                store.load();
+                gradeGroup = store;
+                store.getProxy().url = urlTemp;
+            }
+        }
+
         this.control({
         "authGrid": {
                 itemdblclick: function (_grid, record, item, index, e, eOpts) {
@@ -31,6 +46,7 @@ Ext.define("core.system.controller.AuthController", {
                     btn.enable(true);
                     // //清空数据
                     form.getForm().reset();
+                    getGradeGroup(form);
                     win.show();
                 }
             },
@@ -50,6 +66,7 @@ Ext.define("core.system.controller.AuthController", {
                     var btn = form.down("button[ref=reset]");
                     form.down("button[ref=save]").enable();
                     form.getForm().findField("username").setReadOnly(true);
+                    getGradeGroup(form);
                     btn.disable();
                     //把选择的数据加载到form中去
                     form.loadRecord(records[0]);//加载数据，第1条
