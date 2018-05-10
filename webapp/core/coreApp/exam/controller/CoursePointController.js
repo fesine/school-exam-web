@@ -121,12 +121,12 @@ Ext.define("core.exam.controller.CoursePointController", {
                             //因为不再返回success，所以在failure中请求回调
                             var resObj = action.result;
                             if (resObj.code == 201) {
-                                Ext.getCmp("coursePointWindow").close();
+                                // Ext.getCmp("coursePointWindow").close();
                                 var _grid = Ext.widget("coursePointGrid");
                                 var store = _grid.getStore();
                                 store.load();
                                 _grid.show();
-                                Ext.Msg.alert("提示", resObj.msg);
+                                // Ext.Msg.alert("提示", resObj.msg);
                             } else {
                                 Ext.Msg.alert("提示", resObj.msg);
                             }

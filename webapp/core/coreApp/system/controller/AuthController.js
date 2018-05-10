@@ -129,6 +129,28 @@ Ext.define("core.system.controller.AuthController", {
                 }
             },
             /**
+             * 查找功能
+             */
+            "authGrid button[ref=search]": {
+                click: function (_btn) {
+                    var tbar = _btn.ownerCt;
+                    var store = tbar.ownerCt.getStore();
+                    var nameKey = tbar.down("textfield[ref = nameKey]").value;
+                    var cellKey = tbar.down("textfield[ref = cellKey]").value;
+                    store.load({
+                        params: {username: nameKey, cell: cellKey}
+                    });
+                }
+            },
+            //重置事件
+            "authGrid button[ref=reset]": {
+                click: function (btn) {
+                    var tbar = btn.ownerCt;
+                    tbar.down("textfield[ref = nameKey]").setValue("");
+                    tbar.down("textfield[ref = cellKey]").setValue("");
+                }
+            },
+            /**
              * 添加菜单form的保存按钮
              */
             "authWindow button[ref=save]": {

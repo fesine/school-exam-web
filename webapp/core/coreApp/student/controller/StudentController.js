@@ -132,12 +132,11 @@ Ext.define("core.student.controller.StudentController", {
                             //因为不再返回success，所以在failure中请求回调
                             var resObj = action.result;
                             if (resObj.code == 201) {
-                                Ext.getCmp("studentWindow").close();
                                 var _grid = Ext.widget("studentGrid");
                                 var store = _grid.getStore();
                                 store.load();
                                 _grid.show();
-                                Ext.Msg.alert("提示", resObj.msg);
+                                // Ext.Msg.alert("提示", resObj.msg);
                             } else {
                                 Ext.Msg.alert("提示", resObj.msg);
                             }
@@ -160,6 +159,7 @@ Ext.define("core.student.controller.StudentController", {
             "studentWindow button[ref=return]": {
                 click: function (btn) {
                     Ext.getCmp("studentWindow").close();
+                    Ext.widget("studentGrid").getStore().load();
                 }
             },
 

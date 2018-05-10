@@ -137,6 +137,10 @@ Ext.define("core.system.controller.MenuController", {
                     //1获得form
                     var _form = btn.ownerCt.ownerCt;
                     var id = _form.getForm().findField("id").getValue();
+                    var parentId = _form.getForm().findField("parentId").getValue();
+                    if(!parentId || parentId === 0){
+                        rootMenu = null;
+                    }
                     var url= _hostUrl + "/v1/menu";
                     var method;
                     if (id == "" || null == id) {
@@ -160,7 +164,7 @@ Ext.define("core.system.controller.MenuController", {
                                 var store = _grid.getStore();
                                 store.load();
                                 _grid.show();
-                                Ext.Msg.alert("提示", "操作成功!重新登录后生效!");
+                                Ext.Msg.alert("提示", "操作成功!重新登录或点击清空缓存后生效!");
                             } else {
                                 Ext.Msg.alert("提示", resObj.msg);
                             }

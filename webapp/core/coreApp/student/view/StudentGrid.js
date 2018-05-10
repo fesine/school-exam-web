@@ -76,14 +76,14 @@ Ext.define("core.student.view.StudentGrid", {
     ],
     listeners: {
         afterrender: function () {
-            if (Ext.util.Cookies.get('grade') < 1) {
-                var grid = this;
-                var item = grid.down("button[ref=refresh]");
-                var tbar = item.ownerCt;
-                tbar.remove(tbar.items.last());
-                tbar.remove(tbar.items.last());
-                tbar.remove(tbar.items.last());
-            }
+            // if (Ext.util.Cookies.get('grade') < 1) {
+            //     var grid = this;
+            //     var item = grid.down("button[ref=refresh]");
+            //     var tbar = item.ownerCt;
+            //     tbar.remove(tbar.items.last());
+            //     tbar.remove(tbar.items.last());
+            //     tbar.remove(tbar.items.last());
+            // }
 
         }
     },

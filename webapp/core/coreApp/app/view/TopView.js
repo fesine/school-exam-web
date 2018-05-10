@@ -26,5 +26,11 @@ Ext.define("core.app.view.TopView", {
         xtype: "button",
         ref: "logout",
         text: "注 销 系 统"
+    }, {
+        x: 1180,
+        y: 35,
+        xtype: "button",
+        ref: "clear",
+        text: "清 空 缓 存"
     }]
 });

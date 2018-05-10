@@ -16,7 +16,13 @@ Ext.define("core.system.view.AuthGrid", {
         {xtype: 'button',text:"刷新",ref:'refresh',  iconCls: 'table_refresh'},
         {xtype: 'button', text: '新增管理员', ref: 'addAuth', iconCls: 'table_add'},
         {xtype: 'button', text: '修改管理员', ref: 'updateAuth', iconCls: 'table_edit'},
-        {xtype: 'button', text: '删除管理员', ref: 'removeAuth', iconCls: 'table_remove'}
+        {xtype: 'button', text: '删除管理员', ref: 'removeAuth', iconCls: 'table_remove'},
+        "-",
+        {xtype: 'textfield', emptyText: '用户名精确查询', ref: 'nameKey'},
+        {xtype: 'textfield', emptyText: '手机号模糊查询', ref: 'cellKey'},
+        "-",
+        {xtype: 'button', text: '搜索', ref: 'search', iconCls: 'table_search'},
+        {xtype: 'button', text: '重置', ref: 'reset', iconCls: 'wfreturn'}
     ],
     enableKeyNav: true,  //可以使用键盘控制上下
     columnLines: true, //展示竖线

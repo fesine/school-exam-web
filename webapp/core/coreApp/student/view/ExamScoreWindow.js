@@ -39,7 +39,7 @@ Ext.define('core.student.view.ExamScoreWindow', {
         items: [{
             xtype: "textfield",
             fieldLabel: "ID",
-            name: "id",
+            name: "examId",
             hidden: true
         }, {
             xtype: "textfield",
@@ -58,7 +58,7 @@ Ext.define('core.student.view.ExamScoreWindow', {
             allowBlank: false,//不允许为空
             displayField: 'classroomName',
             listeners: {
-                blur: function (obj) {
+                select: function (obj) {
                     getStudentName(obj);
                 }
             }
@@ -69,7 +69,7 @@ Ext.define('core.student.view.ExamScoreWindow', {
             store: Ext.create("core.student.store.StudentStore", {}),
             forceSelection: true,
             queryMode: 'local',
-            valueField: 'id',
+            valueField: 'stuNo',
             triggerAction: "all",
             allowBlank: false,//不允许为空
             displayField: 'stuName',

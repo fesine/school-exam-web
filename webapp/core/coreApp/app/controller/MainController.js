@@ -49,6 +49,25 @@ Ext.define("core.app.controller.MainController",{
 					});
 				}
 			},
+			/**注销*/
+			"topview button[ref=clear]" : {
+				click: function(btn){
+					Ext.Ajax.request({
+						waitMsg: '正在清空后台缓存……',
+						url: _hostUrl+"/v1/user/clear",
+						method: "GET",
+						timeout: 4000,
+						success: function (response, opts) {
+							var resObj = Ext.decode(response.responseText);
+							if (resObj.code == 200) {
+								Ext.Msg.alert("提示", "清空成功!");
+							} else {
+								Ext.Msg.alert("提示", resObj.msg);
+							}
+						}
+					});
+				}
+			},
 		//
 		//	//别名 xtype选择器，对象，响应点击事件
 			"menuTreeView treepanel":{

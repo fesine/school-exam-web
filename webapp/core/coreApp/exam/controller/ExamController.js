@@ -21,10 +21,42 @@ Ext.define("core.exam.controller.ExamController", {
                     form.loadRecord(record);//加载数据
                     var btn = form.down("button[ref=reset]");
                     form.down("button[ref=save]").enable();
+                    form.down("combobox[name=gradeId]").readOnly = true;
+                    form.down("combobox[name=courseId]").readOnly = true;
                     btn.disable();
                     win.show();
                 }
 
+            },
+            /**
+             * 添加成绩
+             */
+            "examGrid button[ref=addExamScore]": {
+                click: function (btn) {
+                    var grid = btn.up("examGrid");
+                    var records = grid.getSelectionModel().getSelection();
+                    if (!records || records.length != 1) {
+                        Ext.Msg.alert("提示", "请选择一条数据!");
+                        return;
+                    }
+                    var endTime = records[0].data.endTime;
+                    var now = new Date().getTime();
+                    if(now - endTime < 0){
+                        Ext.Msg.alert("错误","考试还没结束，不能填写成绩!");
+                        return;
+                    }
+                    var win = Ext.widget("examScoreWindow");
+                    win.setTitle("添加考试成绩");
+                    var form = win.down("form");
+                    var btn = form.down("button[ref=reset]");
+                    form.down("button[ref=save]").disable();
+                    btn.enable(true);
+                    form.getForm().reset();
+                    form.loadRecord(records[0]);//加载数据，第1条
+                    //将考试id赋值到examId字段中
+                    form.down("textfield[name=examId]").setValue(records[0].data.id);
+                    win.show();
+                }
             },
             /**
              * 添加用户
@@ -40,6 +72,50 @@ Ext.define("core.exam.controller.ExamController", {
                     // //清空数据
                     form.getForm().reset();
                     win.show();
+                }
+            },
+            //重置事件
+            "examScoreWindow button[ref=reset]": {
+                click: function (btn) {
+                    var form = btn.ownerCt.ownerCt;
+                    form.getForm().reset();
+                }
+            },
+            /**
+             * 保存成绩
+             */
+            "examScoreWindow button[ref=save]": {
+                click: function (btn) {
+                    //1获得form
+                    var _form = btn.ownerCt.ownerCt;
+                    // var id = _form.getForm().findField("id").getValue();
+                    var url = _hostUrl + "/v1/examScore";
+                    //2.把数据保存到数据库中去
+                    _form.submit({
+                        clientValidation: true,
+                        waitMsg: '正在进行处理,请稍后...',
+                        url: url,
+                        method: "POST",
+                        failure: function (form, action) {
+                            //因为不再返回success，所以在failure中请求回调
+                            var resObj = action.result;
+                            if (resObj.code == 201) {
+                                Ext.getCmp("examScoreWindow").down('textfield[name=score]').setValue("");
+                                Ext.Msg.alert("提示", resObj.msg);
+                            } else {
+                                Ext.Msg.alert("提示", resObj.msg);
+                            }
+                        }
+                    });
+
+                }
+            },
+            /**
+             * 添加用户form的返回按钮
+             */
+            "examScoreWindow button[ref=return]": {
+                click: function (btn) {
+                    Ext.getCmp("examScoreWindow").close();
                 }
             },
             /**
@@ -61,6 +137,8 @@ Ext.define("core.exam.controller.ExamController", {
                     //把选择的数据加载到form中去
                     setDateTime(records[0], form);
                     form.loadRecord(records[0]);//加载数据，第1条
+                    form.down("combobox[name=gradeId]").readOnly=true;
+                    form.down("combobox[name=courseId]").readOnly = true;
                     win.show();
                 }
             },
@@ -116,12 +194,12 @@ Ext.define("core.exam.controller.ExamController", {
                             //因为不再返回success，所以在failure中请求回调
                             var resObj = action.result;
                             if (resObj.code == 201) {
-                                Ext.getCmp("examWindow").close();
+                                // Ext.getCmp("examWindow").close();
                                 var _grid = Ext.widget("examGrid");
                                 var store = _grid.getStore();
                                 store.load();
                                 _grid.show();
-                                Ext.Msg.alert("提示", resObj.msg);
+                                // Ext.Msg.alert("提示", resObj.msg);
                             } else {
                                 Ext.Msg.alert("提示", resObj.msg);
                             }
@@ -159,6 +237,7 @@ Ext.define("core.exam.controller.ExamController", {
     views: [
         "core.exam.view.ExamLayout",
         "core.exam.view.ExamGrid",
+        "core.student.view.ExamScoreWindow",
         "core.exam.view.ExamWindow"
     ],
     stores: ["core.exam.store.ExamStore"],
@@ -213,4 +292,18 @@ getTimeField = function (_form, date, time) {
 stringParseDate = function (dateStr) {
     var dateTimeFormat = 'Y-m-d H:i:s';
     return Ext.Date.parse(dateStr, dateTimeFormat);
-}
+};
+//获取学生列表
+getStudentName = function (obj) {
+    var _form = obj.ownerCt;
+    var gradeId = _form.getForm().findField('gradeId').value;
+    var classroomId = _form.getForm().findField('classroomId').value;
+    var stuNo = _form.getForm().findField('stuNo');
+    stuNo.getStore().load({
+        params: {
+            gradeId: gradeId,
+            classroomId: classroomId,
+            limit: 1000
+        }
+    });
+};

@@ -16,7 +16,8 @@ Ext.define("core.exam.view.ExamGrid", {
         {xtype: 'button',text:"刷新",ref:'refresh',  iconCls: 'table_refresh'},
         {xtype: 'button', text: '新增考试', ref: 'addExam', iconCls: 'table_add'},
         {xtype: 'button', text: '修改考试', ref: 'updateExam', iconCls: 'table_edit'},
-        {xtype: 'button', text: '删除考试', ref: 'removeExam', iconCls: 'table_remove'}
+        {xtype: 'button', text: '删除考试', ref: 'removeExam', iconCls: 'table_remove'},
+        {xtype: 'button', text: '添加成绩', ref: 'addExamScore', iconCls: 'table_add'}
     ],
     bbar: {
         xtype: 'pagingtoolbar',
