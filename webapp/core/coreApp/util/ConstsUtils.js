@@ -33,6 +33,18 @@ Ext.define('core.util.ConstsUtils',{
          }
          return value;
     },
+     scoreConvent: function (v,metaData) {
+         var value;
+         if (v < 60 ) {
+             value =  "<font color=white>"+v+"</font>";
+             metaData.style = ' margin: 1px; padding: 1px;background: orangered;';
+         } else if (v  < 90) {
+             value = v;
+         } else {
+             value = "<font color=red>" + v + "</font>";
+         }
+         return value;
+    },
      statusConvent: function (v,metaData) {
          var value;
          if (v == "0") {

@@ -1,11 +1,11 @@
 /**
  * Created by Fesine on 2017/3/4.
  */
-Ext.define('core.school.view.CourseWindow', {
+Ext.define('core.student.view.ExamScoreWindow', {
     extend: 'Ext.window.Window',
-    alias: 'widget.courseWindow',
-    id: 'courseWindow',
-    title: "课程管理编辑",
+    alias: 'widget.examScoreWindow',
+    id: 'examScoreWindow',
+    title: "成绩管理编辑",
     width: 300,
     height: 200,
     layout: "fit",
@@ -42,21 +42,51 @@ Ext.define('core.school.view.CourseWindow', {
             name: "id",
             hidden: true
         }, {
-            xtype: "combobox",
+            xtype: "textfield",
             fieldLabel: "年级",
             name: "gradeId",
-            store: Ext.create("core.school.store.GradeStore", {}),
+            hidden: true
+        }, {
+            xtype: "combobox",
+            fieldLabel: "班级",
+            name: "classroomId",
+            store: Ext.create("core.school.store.ClassroomStore", {}),
             forceSelection: true,
             queryMode: 'remote',
             valueField: 'id',
             triggerAction: "all",
             allowBlank: false,//不允许为空
-            displayField: 'gradeName'
+            displayField: 'classroomName',
+            listeners: {
+                blur: function (obj) {
+                    getStudentName(obj);
+                }
+            }
+        }, {
+            xtype: "combobox",
+            fieldLabel: "学生",
+            name: "stuNo",
+            store: Ext.create("core.student.store.StudentStore", {}),
+            forceSelection: true,
+            queryMode: 'local',
+            valueField: 'id',
+            triggerAction: "all",
+            allowBlank: false,//不允许为空
+            displayField: 'stuName',
+            listeners: {
+                expand: function (obj) {
+                    var gradeId = obj.ownerCt.getForm().findField("gradeId").getValue();
+                    var classroomId = obj.ownerCt.getForm().findField("classroomId").getValue();
+                    if (!gradeId || !classroomId) {
+                        obj.getStore().removeAll();
+                    }
+                }
+            }
         }, {
             xtype: "textfield",
-            fieldLabel: "课程名称",
-            name: "courseName",
-            blankText: '课程名称不能为空',//错误提示内容,
+            fieldLabel: "成绩",
+            name: "score",
+            blankText: '成绩不能为空',//错误提示内容,
             allowBlank: false//不允许为空
         }, {
             height: 10,

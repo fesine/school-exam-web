@@ -2,17 +2,16 @@
 /*
  * ClassName 用户数据集
  */
-Ext.define("core.school.store.CourseStore", {
-    alias: 'widget.courseStore',
+Ext.define("core.student.store.ExamScoreStore", {
+    alias: 'widget.examScoreStore',
     extend: 'Ext.data.Store',
-    model: 'core.school.model.CourseModel',
+    model: 'core.student.model.ExamScoreModel',
     pageSize: 20,//每页显示10条记录
     proxy: {
         type: "ajax",
-        url: _hostUrl + "/v1/courses",
+        url: _hostUrl + "/v1/examScores",
         extraParams: {
-            name: Ext.util.Cookies.get("userName"),
-            dateStr: null
+            name: Ext.util.Cookies.get("userName")
         },
         reader: {
             type: "json",

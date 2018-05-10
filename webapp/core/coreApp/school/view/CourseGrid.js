@@ -45,7 +45,7 @@ Ext.define('core.school.view.CourseGrid', {
     columns: [
         {xtype: 'rownumberer'},
         {text: '编号', dataIndex: 'id', width: 100, border: 50},
-        {text: '课程名称', dataIndex: 'gradeName', width: 150, border: 50},
+        {text: '年级名称', dataIndex: 'gradeName', width: 150, border: 50},
         {text: '课程名称', dataIndex: 'courseName', width: 150, border: 50}
 
     ],
