@@ -36,7 +36,7 @@ Ext.define("core.app.view.MainViewLayout",{
             bodyStyle: 'padding-bottom:15px;background:#eee;',
             autoScroll: true,
             html: '<p class="details-info" style="margin: 5px 15px">' +
-            '姓&nbsp;&nbsp;&nbsp;名：' +
+            '用户名：' +
             Ext.util.Cookies.get('userName')
             +'<br />角&nbsp;&nbsp;&nbsp;色：' +
             Ext.util.Cookies.get("gradeName") +

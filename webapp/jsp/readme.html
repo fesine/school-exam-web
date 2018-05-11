@@ -1019,11 +1019,26 @@
 <div class="container">
     <div id="markup">
         <article id="content" class="markdown-body">
-            <!--<h1><font color="red">农大附中学习辅助系统管理系统 V1.0 beta</font></h1>-->
+            <h4>一.系统开发技术</h4>
             <blockquote>
-                <p>
-                    管理大屏展示功能待开发。</p>
+                <p>后端技术：java、spring-boot、mybatis、mysql</p>
+                <p>前端技术：jsp、javascript、extJs、html、css</p>
+                <p>Web服务器：nginx</p>
             </blockquote>
+            <h4>二.功能介绍</h4>
+            <h5>系统模块：</h5>
+            <ol>
+                <li>学生管理(学生信息、学生成绩)</li>
+                <li>考试管理(考试管理、知识点管理、成绩管理)</li>
+                <li>学校管理(年级管理、班级管理、课程管理)</li>
+                <li>系统设置(个人信息、用户管理、栏目管理、代码管理)</li>
+            </ol>
+            <h5>用户权限：</h5>
+            <ol>
+                <li>超级管理员：可以操作所有模块和功能；（superAdmin:123456）</li>
+                <li>权限管理员可以操作除栏目管理和代码管理外的所有模块和功能；(admin:123456)</li>
+                <li>管理员：学生模块、考试模块所有权限操作，学校管理模块查看权限、修改个人信息；(teacher:123456)</li>
+            </ol>
         </article>
     </div>
 </div>
