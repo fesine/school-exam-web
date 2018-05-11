@@ -12,10 +12,10 @@
         {name:"gradeId",type:"number",sortable:true},
         {name:"classroomId",type:"number",sortable:true},
         {name:"courseId",type:"number",sortable:true},
- 		{name:"gradeName",type:"string",sortable:true},
+        {name:"courseName",type:"string",sortable:true},
+        {name:"gradeName",type:"string",sortable:true},
  		{name:"classroomName",type:"string",sortable:true},
  		{name:"startTime",type:"string",sortable:true},
- 		{name:"endTime",type:"string",sortable:true},
- 		{name:"courseName",type:"string", sortable:true}
+ 		{name:"endTime",type:"string",sortable:true}
  	]
  });

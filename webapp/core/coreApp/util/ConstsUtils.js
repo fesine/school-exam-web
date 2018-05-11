@@ -35,7 +35,9 @@ Ext.define('core.util.ConstsUtils',{
     },
      scoreConvent: function (v,metaData) {
          var value;
-         if (v < 60 ) {
+         if(v == 0 || v == "0"){
+             value = "";
+         } else if (v < 60 ) {
              value =  "<font color=white>"+v+"</font>";
              metaData.style = ' margin: 1px; padding: 1px;background: orangered;';
          } else if (v  < 90) {
