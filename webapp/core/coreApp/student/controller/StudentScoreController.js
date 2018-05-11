@@ -43,7 +43,7 @@ Ext.define("core.student.controller.StudentScoreController", {
              */
             "studentScoreWindow button[ref=return]": {
                 click:function (btn) {
-                    Ext.widget("studentScoreWindow").close();
+                    Ext.getCmp("studentScoreWindow").close();
                 }
             },
 

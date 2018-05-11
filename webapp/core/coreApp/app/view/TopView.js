@@ -25,7 +25,7 @@ Ext.define("core.app.view.TopView", {
         y: 35,
         xtype: "button",
         ref: "logout",
-        text: "注 销 系 统"
+        text: "注 销 登 录"
     }, {
         x: 1180,
         y: 35,

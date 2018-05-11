@@ -54,7 +54,7 @@ Ext.define("core.system.controller.SysController", {
                     _form.submit({
                         clientValidation: true,
                         waitMsg: '正在进行处理,请稍后...',
-                        url: _hostUrl + "/v1/user",
+                        url: _hostUrl + "/v1/user/"+ _form.getForm().findField("id").getValue(),
                         method: 'PUT',
                         failure: function (form, action) {
                             //因为不再返回success，所以在failure中请求回调
@@ -156,5 +156,5 @@ Ext.define("core.system.controller.SysController", {
         "core.system.view.SysWindow"
     ],
     stores: ["core.system.store.SysStore"],
-    models: ["core.user.model.UserModel"]
+    models: ["core.system.model.AuthModel"]
 });
